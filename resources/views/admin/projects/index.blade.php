@@ -18,6 +18,8 @@
                         <th scope="col">Descrizione</th>
                         <th scope="col">Immagine</th>
                         <th scope="col">Data</th>
+                        <th scope="col">Tecnologie</th>
+
                         <th scope="col">Vai</th>
 
                     </tr>
@@ -29,6 +31,7 @@
                             <td> {{ $project->title }} </td>
                             <td> {{ $project->slug }} </td>
                             <td>{{ $project->price }}</td>
+
                             <td>
                                 @if ($project->type != null)
                                     <a href="{{ route('admin.types.show', ['type' => $project->type->id]) }}">
@@ -41,6 +44,14 @@
                             <td>{{ $project->description }}</td>
                             <td> {{ $project->image }} </td>
                             <td>{{ $project->created_at }}</td>
+                            <td>
+                                @foreach ($project->technologies as $technology)
+                                    <a href="{{ route('admin.technologies.show', ['technology' => $technology->id]) }}"
+                                        class="badge rounded-pill badge-primary">
+                                        {{ $technology->name }}
+                                    </a>
+                                @endforeach
+                            </td>
                             <td>
                                 <a href="{{ route('admin.projects.show', ['project' => $project->id]) }}"
                                     class="btn btn-success">Visualizza</a>

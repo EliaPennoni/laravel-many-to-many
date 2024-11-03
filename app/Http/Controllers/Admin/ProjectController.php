@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\{
     Type,
     Project,
+    technology,
 };
 
 class ProjectController extends Controller
@@ -18,7 +19,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::get();
+        $projects = Project::with('technologies')->get();
         return view('admin.projects.index', compact('projects'));
     }
 
