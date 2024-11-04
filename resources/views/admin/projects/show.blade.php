@@ -25,7 +25,7 @@
                     Prezzo:{{ $project->price }}
                 </li>
                 <li>
-                    Immagine: {{ $project->image }}
+                    Immagine: <img src="{{ '/storage/' . $project->image }}" alt="La mia immagine">
                 </li>
                 <li>
                     Data:{{ $project->created_at }}

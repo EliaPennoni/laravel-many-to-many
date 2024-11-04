@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col">
             <h1>Il mio nuovo progetto</h1>
-            <form action="{{ route('admin.projects.store') }}" method="POST">
+            <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">
@@ -41,7 +41,7 @@
 
                 <div class="mb-3">
                     <label for="image" class="form-label">Immagine</label>
-                    <input type="text" class="form-control" id="image" name="image"
+                    <input type="file" class="form-control" id="image" name="image"
                         placeholder="inserisci la immagine">
                 </div>
                 <button type="submit" class="btn btn-success w-100"> invia</button>

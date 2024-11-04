@@ -6,6 +6,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+// helpers
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\{
     Type,
     Project,
@@ -42,15 +45,25 @@ class ProjectController extends Controller
             'title' => 'required|max:64',
             'price' => 'required',
             'description' => 'nullable',
-            'image' => 'nullable',
+            'image' => 'nullable|image|max:2048',
             'type_id' => 'nullable|exists:types,id',
         ]);
 
         $data['slug'] = str()->slug($data['title']);
         $project = Project::create($data);
 
+
+        if ($request->hasFile('image')) {
+            $imgPath = $request->file('image')->store('uploads', 'public');
+            $project->update(['image' => $imgPath]);
+
+
+
+        }
+
         return redirect()->route('admin.projects.show', ['project' => $project->id]);
     }
+
 
 
 
