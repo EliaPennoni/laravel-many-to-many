@@ -12,7 +12,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
-
+                        <th scopa="col">NUmero di progetti collegati</th>
                         <th scope="col">Data</th>
 
 
@@ -25,6 +25,9 @@
                         <tr>
                             <th scope="row">{{ $technology->id }}</th>
                             <td> {{ $technology->name }} </td>
+                            <td>
+                                {{ $technology->projects()->count() }}
+                            </td>
                             <td>{{ $technology->created_at }}</td>
 
                             <td>

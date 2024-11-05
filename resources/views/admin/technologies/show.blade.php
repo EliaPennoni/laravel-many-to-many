@@ -14,11 +14,22 @@
                 </li>
 
                 <li>
-                    Titolo: {{ $technology->title }}
+                    Titolo: {{ $technology->name }}
                 </li>
 
                 <li>
                     Data:{{ $technology->created_at }}
+                </li>
+                <li>
+                    Progetti collegati:
+                    <ul>
+                        @foreach ($technology->projects as $project)
+                            <li>
+                                <a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">
+                                    {{ $project->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </li>
 
             </ul>
