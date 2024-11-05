@@ -56,9 +56,6 @@ class ProjectController extends Controller
         if ($request->hasFile('image')) {
             $imgPath = $request->file('image')->store('uploads', 'public');
             $project->update(['image' => $imgPath]);
-
-
-
         }
 
         return redirect()->route('admin.projects.show', ['project' => $project->id]);
@@ -98,6 +95,16 @@ class ProjectController extends Controller
 
         $data['slug'] = str()->slug($data['title']);
         $project->update($data);
+
+        if ($request->hasFile('image')) {
+            if ($project->image) {
+                Storage::delete('$project->image');
+                $project->image = null;
+            }
+            $imgPath = $request->file('image')->store('uploads', 'public');
+            $project->update(['image' => $imgPath]);
+
+        }
 
         return redirect()->route('admin.projects.show', ['project' => $project->id]);
     }

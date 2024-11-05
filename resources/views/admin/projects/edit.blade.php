@@ -6,7 +6,8 @@
     <div class="row">
         <div class="col">
             <h1>modifica il progetto</h1>
-            <form action="{{ route('admin.projects.update', ['project' => $project->id]) }}" method="POST">
+            <form action="{{ route('admin.projects.update', ['project' => $project->id]) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -27,8 +28,12 @@
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Immagine</label>
-                    <input type="text" class="form-control" id="image" name="image"
-                        placeholder="inserisci la immagine">
+                    <input type="file" class="form-control" id="image" name="image">
+                    @if ($project->image)
+                        <div>
+                            <img src="{{ asset('/storage/' . $project->image) }}" alt="" style="height:200px;">
+                        </div>
+                    @endif
                 </div>
                 <button type="submit" class="btn btn-success w-100"> invia</button>
             </form>
