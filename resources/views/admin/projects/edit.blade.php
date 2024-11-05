@@ -32,7 +32,13 @@
                     @if ($project->image)
                         <div>
                             <img src="{{ asset('/storage/' . $project->image) }}" alt="" style="height:200px;">
-                        </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="rimuovi_immagine"
+                                    value="rimuovi_immagine" id="rimuovi_immagine">
+                                <label class="form-check-label" for="rimuovi_immagine">
+                                    Rimuovi Immagine
+                                </label>
+                            </div>
                     @endif
                 </div>
                 <button type="submit" class="btn btn-success w-100"> invia</button>

@@ -25,7 +25,9 @@
                     Prezzo:{{ $project->price }}
                 </li>
                 <li>
-                    Immagine: <img src="{{ '/storage/' . $project->image }}" alt="La mia immagine">
+                    Immagine: @if ($project->image)
+                        <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}" style="height:200px;">
+                    @endif
                 </li>
                 <li>
                     Data:{{ $project->created_at }}

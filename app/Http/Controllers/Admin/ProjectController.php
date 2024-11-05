@@ -54,9 +54,14 @@ class ProjectController extends Controller
 
 
         if ($request->hasFile('image')) {
-            $imgPath = $request->file('image')->store('uploads', 'public');
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $imgPath = $file->storeAs('uploads', $filename, 'public');
             $project->update(['image' => $imgPath]);
+            dd($imgPath); // Dovrebbe stampare 'uploads/nome-immagine.jpg'
         }
+
+
 
         return redirect()->route('admin.projects.show', ['project' => $project->id]);
     }
@@ -69,6 +74,7 @@ class ProjectController extends Controller
      */
     public function show(project $project)
     {
+        dd($project->image);
         return view('admin.projects.show', compact('project'));
     }
 
@@ -91,20 +97,26 @@ class ProjectController extends Controller
             'description' => 'nullable',
             'image' => 'nullable',
             'type_id' => 'nullable|exists:types,id',
+            'rimuovi_immagine' => 'nullable',
         ]);
 
         $data['slug'] = str()->slug($data['title']);
-        $project->update($data);
+
 
         if ($request->hasFile('image')) {
             if ($project->image) {
-                Storage::delete('$project->image');
+                Storage::delete($project->image);
                 $project->image = null;
             }
             $imgPath = $request->file('image')->store('uploads', 'public');
             $project->update(['image' => $imgPath]);
 
+        } else if (isset($data['rimuovi_immagine']) && $project->image) {
+            Storage::delete($project->image);
+            $project->image = null;
         }
+
+        $project->update($data);
 
         return redirect()->route('admin.projects.show', ['project' => $project->id]);
     }
