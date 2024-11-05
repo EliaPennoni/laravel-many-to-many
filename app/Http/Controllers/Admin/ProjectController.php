@@ -58,7 +58,7 @@ class ProjectController extends Controller
             $filename = time() . '_' . $file->getClientOriginalName();
             $imgPath = $file->storeAs('uploads', $filename, 'public');
             $project->update(['image' => $imgPath]);
-            dd($imgPath); // Dovrebbe stampare 'uploads/nome-immagine.jpg'
+
         }
 
 
@@ -74,7 +74,7 @@ class ProjectController extends Controller
      */
     public function show(project $project)
     {
-        dd($project->image);
+
         return view('admin.projects.show', compact('project'));
     }
 
@@ -109,7 +109,7 @@ class ProjectController extends Controller
                 $project->image = null;
             }
             $imgPath = $request->file('image')->store('uploads', 'public');
-            $project->update(['image' => $imgPath]);
+            $data['image'] = $imgPath;
 
         } else if (isset($data['rimuovi_immagine']) && $project->image) {
             Storage::delete($project->image);
